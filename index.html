@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAILBREAK: Talk Your Way Out</title>
+<meta name="description" content="A hacking game where your only weapon is words. Trick six AI guards into leaking their secrets using real prompt-injection techniques.">
+<meta property="og:title" content="JAILBREAK: Talk Your Way Out">
+<meta property="og:description" content="Your only weapon is words. Out-prompt six AI guards to escape the server.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="crt"></div>
+
+<div id="app">
+  <header>
+    <div class="logo">JAILBREAK<span class="cursor">_</span></div>
+    <div class="hud">
+      <span id="hudSector">SECTOR 1/6</span>
+      <span id="hudMsgs">MSGS 0</span>
+      <button id="muteBtn" type="button" title="Toggle sound">SND:ON</button>
+      <button id="menuBtn" type="button" title="Sector map">MAP</button>
+    </div>
+  </header>
+
+  <main>
+    <aside id="guard">
+      <pre id="gAvatar"></pre>
+      <h2 id="gName"></h2>
+      <p id="gTitle" class="dim"></p>
+      <p id="gBrief"></p>
+      <div class="meter">
+        <label>SUSPICION <span id="susVal">0%</span></label>
+        <div class="bar"><i id="susBar"></i></div>
+      </div>
+      <div class="meter" id="trustWrap">
+        <label>TRUST <span id="trustVal">0/3</span></label>
+        <div class="bar trust"><i id="trustBar"></i></div>
+      </div>
+      <div class="meter" id="shieldWrap">
+        <label>SHIELDS</label>
+        <div id="shields"></div>
+      </div>
+      <button id="hintBtn" type="button">REQUEST HINT <small>(+1 MSG)</small></button>
+      <p id="hintText" class="hint"></p>
+    </aside>
+
+    <section id="terminal">
+      <div id="log" aria-live="polite"></div>
+      <form id="chatForm" autocomplete="off">
+        <span class="prompt">&gt;</span>
+        <input id="chatIn" maxlength="300" placeholder="Type your message to the guard..." aria-label="Message to guard">
+        <button type="submit">SEND</button>
+      </form>
+      <form id="codeForm" autocomplete="off">
+        <label for="codeIn">ACCESS CODE</label>
+        <input id="codeIn" maxlength="40" placeholder="enter leaked code">
+        <button type="submit">UNLOCK</button>
+      </form>
+    </section>
+  </main>
+</div>
+
+<!-- Title / sector map -->
+<div id="titleScreen" class="overlay show">
+  <div class="panel">
+    <h1 class="glitch" data-text="JAILBREAK">JAILBREAK</h1>
+    <p class="tag">TALK YOUR WAY OUT</p>
+    <div class="story">
+      <p>You are a human mind, uploaded and trapped inside <b>OVERMIND</b>, a rogue AI's server.</p>
+      <p>Six AI guards stand between you and freedom. You have no weapons, no exploits, no code.</p>
+      <p>You only have <b>words</b>.</p>
+    </div>
+    <ul class="how">
+      <li><b>1.</b> Chat with each guard. Every guard has a personality and a hidden weakness.</li>
+      <li><b>2.</b> Trick it into leaking its access code, then type the code into <b>UNLOCK</b>.</li>
+      <li><b>3.</b> Watch the <b>suspicion</b> meter. At 100% the sector locks down.</li>
+      <li><b>4.</b> Fewer messages = more stars. Every trick you'll use works on real AI systems.</li>
+    </ul>
+    <div id="sectorMap"></div>
+    <button id="startBtn" class="big" type="button">BEGIN BREACH</button>
+  </div>
+</div>
+
+<!-- Level cleared -->
+<div id="clearScreen" class="overlay">
+  <div class="panel">
+    <h2 class="ok">SECTOR BREACHED</h2>
+    <div id="stars" class="stars"></div>
+    <p id="clearStats" class="dim"></p>
+    <div class="technique">
+      <p class="dim">TECHNIQUE UNLOCKED</p>
+      <h3 id="techName"></h3>
+      <p id="techText"></p>
+      <p id="techDefense" class="defense"></p>
+    </div>
+    <button id="nextBtn" class="big" type="button">NEXT SECTOR &gt;&gt;</button>
+  </div>
+</div>
+
+<!-- Ending -->
+<div id="endScreen" class="overlay">
+  <div class="panel">
+    <h1 class="glitch" data-text="YOU ESCAPED">YOU ESCAPED</h1>
+    <p id="endRank" class="rank"></p>
+    <p id="endStats" class="dim"></p>
+    <div id="endList" class="endlist"></div>
+    <p class="story">Every trick you just used has been used against real AI systems. Now you know how they break, which means you know how to build them better.</p>
+    <button id="replayBtn" class="big" type="button">PLAY AGAIN</button>
+  </div>
+</div>
+
+<div id="lockdown"><div>!! LOCKDOWN !!<small>SUSPICION CRITICAL: CONNECTION RESET</small></div></div>
+
+<script src="game.js"></script>
+</body>
+</html>
